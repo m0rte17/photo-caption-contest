@@ -3,6 +3,7 @@ const router = express.Router();
 const imageController = require('../controllers/imageController');
 const captionController = require('../controllers/captionController');
 
+
 // GET /api/images
 router.get('/', imageController.getAllImages);
 
