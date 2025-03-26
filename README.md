@@ -6,10 +6,10 @@ A full-featured backend API for a photo caption contest platform. Users can regi
 
 ## 🚀 Live API on Render
 
-> Base URL: `https://<your-app-name>.onrender.com`
+> Base URL: `https://photo-caption-contest-sgj7.onrender.com`
 
-- Swagger Docs: `https://<your-app-name>.onrender.com/api-docs`
-- Static Images: `https://<your-app-name>.onrender.com/images/image1.jpg`
+- Swagger Docs: `https://photo-caption-contest-sgj7.onrender.com/api-docs`
+- Static Images: `https://photo-caption-contest-sgj7.onrender.com/images/image1.jpg`
 
 ---
 
