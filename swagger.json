@@ -7,6 +7,10 @@
   },
   "servers": [
     {
+      "url": "https://photo-caption-contest.onrender.com",
+      "description": "Render Production Server"
+    },
+    {
       "url": "http://localhost:3000",
       "description": "Local development server"
     }
