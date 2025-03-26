@@ -125,7 +125,7 @@ Authorization: Bearer <token>
 
 You can explore and test all endpoints at:
 ```
-https://<your-app-name>.onrender.com/api-docs
+https://photo-caption-contest-sgj7.onrender.com/api-docs
 ```
 
 ---
