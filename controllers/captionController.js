@@ -6,6 +6,10 @@ exports.addCaptionToImage = async (req, res) => {
     const imageId = req.params.id;
     const { userId, text } = req.body;
 
+    if (!userId || !text) {
+      return res.status(400).json({ message: 'userId and text are required' });
+    }
+
     const newCaption = await captionService.createCaption({ userId, imageId, text });
 
     res.status(201).json(newCaption);
