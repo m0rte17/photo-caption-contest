@@ -1,0 +1,19 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+npm-debug.log*
+*.log
+
+# Editor configurations
+.vscode/
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
+
+# Sequelize migration temporary files
+.sequelizerc
