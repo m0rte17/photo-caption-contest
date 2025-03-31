@@ -10,13 +10,14 @@ app.get('/', (req, res) => {
   res.json({ message: 'Express server is running' });
 });
 
-app.use(express.json());
-app.use('/images', imageRoutes);
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   }));
+app.use(express.json());
+app.use('/images', imageRoutes);
+
 app.use('/auth', authRoutes);
 
 // Make the public folder accessible to the client
