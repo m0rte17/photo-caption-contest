@@ -1,16 +1,36 @@
 const { Image, Caption, User } = require("../models");
+const { cache } = require("../utils/cache");
 
 exports.getAllImages = async () => {
-    return await Image.findAll();
+    const cacheKey = 'allImages';
+    const cachedResult = cache.get(cacheKey);
+
+    if (cachedResult) {
+        return cachedResult;
+    }
+
+    const images = await Image.findAll();
+    cache.set(cacheKey, images);
+    return images;
 };
 
 exports.getImageById = async (id) => {
-    return await Image.findByPk(id, {
+    const cacheKey = `image_${id}`;
+    const cachedResult = cache.get(cacheKey);
+
+    if (cachedResult) {
+        return cachedResult;
+    }
+
+    const image = await Image.findByPk(id, {
         include: {
             model: Caption,
             include: [ User ]
         }
     });
+    
+    cache.set(cacheKey, image);
+    return image;
 };
 
 exports.addCaptionToImage = async (imageId, userId, text) => {
