@@ -106,8 +106,6 @@ The application implements several security measures:
 - Password hashing using bcrypt
 - Session-based authentication
 - Helmet for HTTP headers security
-- Input validation and sanitization
-- CORS protection
 - Request rate limiting:
   - Global limit: 100 requests per 15 minutes per IP
   - Authentication endpoints: 5 requests per hour per IP
@@ -123,10 +121,6 @@ The application implements several security measures:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-Project Link: [https://github.com/yourusername/photo-caption-contest](https://github.com/yourusername/photo-caption-contest)
 
 ## Acknowledgments
 
