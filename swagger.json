@@ -1,0 +1,417 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Photo Caption Contest API",
+    "description": "API for photo caption contest application", 
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Development Server"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegistration"
+              },
+              "example": {
+                "username": "john_doe",
+                "email": "john@example.com", 
+                "password": "securePassword123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User successfully registered",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User registered successfully",
+                  "username": "john_doe"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or user already exists"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Login to the system",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              },
+              "example": {
+                "email": "john@example.com",
+                "password": "securePassword123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Login successful",
+                  "username": "john_doe"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Logout from the system",
+        "responses": {
+          "200": {
+            "description": "Logout successful",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Logout successful"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images": {
+      "get": {
+        "tags": ["Images"],
+        "summary": "Get list of all images",
+        "responses": {
+          "200": {
+            "description": "List of images",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Image"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/{id}": {
+      "get": {
+        "tags": ["Images"],
+        "summary": "Get image by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Image ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageWithCaptions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Image not found"
+          }
+        }
+      }
+    },
+    "/images/{id}/captions": {
+      "post": {
+        "tags": ["Captions"],
+        "summary": "Add caption to image",
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Image ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaptionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Caption successfully added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Caption"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/captions/{captionId}": {
+      "put": {
+        "tags": ["Captions"],
+        "summary": "Update caption",
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "captionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Caption ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaptionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Caption successfully updated"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "No permission to edit"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Captions"],
+        "summary": "Delete caption",
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "captionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Caption ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Caption successfully deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "No permission to delete"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserRegistration": {
+        "type": "object",
+        "required": ["username", "email", "password"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Username",
+            "example": "john_doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email",
+            "example": "john@example.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "User password",
+            "example": "securePassword123"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "User password"
+          }
+        }
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Image ID"
+          },
+          "url": {
+            "type": "string",
+            "description": "Image URL"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation date"
+          }
+        }
+      },
+      "ImageWithCaptions": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Image ID"
+          },
+          "url": {
+            "type": "string",
+            "description": "Image URL"
+          },
+          "captions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Caption"
+            },
+            "description": "List of image captions"
+          }
+        }
+      },
+      "Caption": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Caption ID"
+          },
+          "text": {
+            "type": "string",
+            "description": "Caption text"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "Caption author ID"
+          },
+          "imageId": {
+            "type": "integer",
+            "description": "Image ID"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation date"
+          }
+        }
+      },
+      "CaptionCreate": {
+        "type": "object",
+        "required": ["text"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Caption text",
+            "example": "This is a very interesting image!"
+          }
+        }
+      },
+      "CaptionUpdate": {
+        "type": "object",
+        "required": ["text"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "New caption text"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "sessionAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "connect.sid",
+        "description": "Session cookie for authentication"
+      }
+    }
+  }
+}

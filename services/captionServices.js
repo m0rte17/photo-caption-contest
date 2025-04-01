@@ -6,7 +6,7 @@ exports.updateCaption = async (captionId, text, userId) => {
         throw new Error("Caption not found");
     }
     
-    if (caption.user_id !== userId) {
+    if (caption.userId !== userId) {
         throw new Error("Unauthorized");
     }
 
@@ -20,7 +20,7 @@ exports.deleteCaption = async (captionId, userId) => {
         throw new Error("Caption not found");
     }
     
-    if (caption.user_id !== userId) {
+    if (caption.userId !== userId) {
         throw new Error("Unauthorized");
     }
 
