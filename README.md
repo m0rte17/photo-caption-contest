@@ -100,32 +100,6 @@ The API returns appropriate HTTP status codes:
 - 404: Not Found
 - 500: Internal Server Error
 
-## Development
-
-### Database Migrations
-
-To create a new migration:
-```bash
-npx sequelize-cli migration:generate --name migration-name
-```
-
-To run migrations:
-```bash
-npx sequelize-cli db:migrate
-```
-
-To undo migrations:
-```bash
-npx sequelize-cli db:migrate:undo
-```
-
-### Testing
-
-Run tests with:
-```bash
-npm test
-```
-
 ## Security
 
 The application implements several security measures:
