@@ -44,7 +44,7 @@ npm install
 ```env
 PORT=3000
 SESSION_SECRET=your_session_secret
-DB_USERNAME=your_db_username
+DB_USER=your_db_username
 DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
 DB_HOST=localhost
