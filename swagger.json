@@ -203,7 +203,7 @@
         }
       }
     },
-    "/captions/{captionId}": {
+    "/captions": {
       "put": {
         "tags": ["Captions"],
         "summary": "Update caption",
@@ -212,23 +212,16 @@
             "sessionAuth": []
           }
         ],
-        "parameters": [
-          {
-            "name": "captionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "Caption ID"
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CaptionUpdate"
+                "$ref": "#/components/schemas/CaptionUpdateBody"
+              },
+              "example": {
+                "captionId": 1,
+                "text": "Updated caption text"
               }
             }
           }
@@ -385,8 +378,13 @@
       },
       "CaptionCreate": {
         "type": "object",
-        "required": ["text"],
+        "required": ["userId", "text"],
         "properties": {
+          "userId": {
+            "type": "integer",
+            "description": "User ID",
+            "example": 1
+          },
           "text": {
             "type": "string",
             "description": "Caption text",
@@ -394,10 +392,14 @@
           }
         }
       },
-      "CaptionUpdate": {
+      "CaptionUpdateBody": {
         "type": "object",
-        "required": ["text"],
+        "required": ["captionId", "text"],
         "properties": {
+          "captionId": {
+            "type": "integer",
+            "description": "ID of the caption to update"
+          },
           "text": {
             "type": "string",
             "description": "New caption text"
