@@ -22,9 +22,13 @@ exports.getImageById = async (req, res) => {
 };
 
 exports.addCaptionToImage = async (req, res) => {
-    const { userId, text } = req.body;
+    const { text } = req.body;
     const imageId = req.params.id;
-
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
     try {
         const caption = await imageServices.addCaptionToImage(imageId, userId, text);
         res.status(201).json(caption);

@@ -388,15 +388,10 @@
       },
       "CaptionCreate": {
         "type": "object",
-        "required": ["userId", "text"],
+        "required": ["text"],
         "properties": {
-          "userId": {
-            "type": "integer",
-            "description": "User ID",
-            "example": 1
-          },
           "text": {
-            "type": "string",
+            "type": "string", 
             "description": "Caption text",
             "example": "This is a very interesting image!"
           }
