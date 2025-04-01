@@ -108,7 +108,9 @@ The application implements several security measures:
 - Helmet for HTTP headers security
 - Input validation and sanitization
 - CORS protection
-- Request rate limiting
+- Request rate limiting:
+  - Global limit: 100 requests per 15 minutes per IP
+  - Authentication endpoints: 5 requests per hour per IP
 
 ## Contributing
 
