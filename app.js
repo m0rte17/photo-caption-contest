@@ -4,6 +4,8 @@ const path = require('path');
 const imageRoutes = require('./routes/imageRoutes');
 const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
+const helmet = require('helmet');
+
 
 // Basic route
 app.get('/', (req, res) => {
@@ -13,9 +15,10 @@ app.get('/', (req, res) => {
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true
   }));
-app.use(express.json());
+app.use(helmet());
+app.use(express.json({ limit: '10kb' }));
 app.use('/images', imageRoutes);
 
 app.use('/auth', authRoutes);

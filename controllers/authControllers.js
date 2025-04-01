@@ -7,7 +7,7 @@ exports.register = async (req, res) => {
         const user = await authServices.registerUser(username, email, password);
         res.status(201).json({ message: 'User registered successfully', username: user.username });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ error: 'User registration failed' });
     }
 };
 
@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
         req.session.userId = user.id;
         res.status(200).json({ message: 'Login successful', username: user.username });
     } catch (error) {
-        res.status(401).json({ error: error.message });
+        res.status(401).json({ error: 'Invalid email or password' });
     }
 };
 
