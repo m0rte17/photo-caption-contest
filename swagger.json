@@ -203,13 +203,24 @@
         }
       }
     },
-    "/captions": {
+    "/captions/{id}": {
       "put": {
         "tags": ["Captions"],
         "summary": "Update caption",
         "security": [
           {
             "sessionAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Caption ID"
           }
         ],
         "requestBody": {
@@ -220,7 +231,6 @@
                 "$ref": "#/components/schemas/CaptionUpdateBody"
               },
               "example": {
-                "captionId": 1,
                 "text": "Updated caption text"
               }
             }
@@ -240,7 +250,7 @@
       },
       "delete": {
         "tags": ["Captions"],
-        "summary": "Delete caption",
+        "summary": "Delete caption", 
         "security": [
           {
             "sessionAuth": []
@@ -248,7 +258,7 @@
         ],
         "parameters": [
           {
-            "name": "captionId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -394,12 +404,8 @@
       },
       "CaptionUpdateBody": {
         "type": "object",
-        "required": ["captionId", "text"],
+        "required": ["text"],
         "properties": {
-          "captionId": {
-            "type": "integer",
-            "description": "ID of the caption to update"
-          },
           "text": {
             "type": "string",
             "description": "New caption text"

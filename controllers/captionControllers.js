@@ -2,7 +2,8 @@ const captionService = require("../services/captionServices");
 
 exports.updateCaption = async (req, res) => {
     try {
-        const { captionId, text } = req.body;
+        const { text } = req.body;
+        const { captionId } = req.params;
         if (!req.session.userId) {
             return res.status(401).json({ error: "Unauthorized" });
         }

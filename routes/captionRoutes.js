@@ -3,7 +3,7 @@ const router = express.Router();
 const captionController = require('../controllers/captionControllers');
 
 // Update caption
-router.put('/', captionController.updateCaption);
+router.put('/:captionId', captionController.updateCaption);
 
 // Delete caption
 router.delete('/:captionId', captionController.deleteCaption);
