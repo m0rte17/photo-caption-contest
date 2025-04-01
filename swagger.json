@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:3000",
       "description": "Local Development Server"
+    },
+    {
+    "url": "https://photo-caption-contest-f49l.onrender.com/",
+    "description": "Production Server"
     }
   ],
   "paths": {
