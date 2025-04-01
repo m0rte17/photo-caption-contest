@@ -5,7 +5,7 @@ A RESTful API for a photo caption contest application where users can view image
 ## Features
 
 - User authentication (register, login, logout)
-- Image management (view all images, view single image with captions)
+- Image management (view all images, view single image)
 - Caption management (add, update, delete captions)
 - Session-based authentication
 - API documentation with Swagger UI
